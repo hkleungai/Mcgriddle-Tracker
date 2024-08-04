@@ -1,0 +1,34 @@
+name: Build & Deploy Mcgriddle Tracker
+
+on:
+    push:
+        branches:
+            -   master
+    pull_request:
+        branches:
+            -   master
+jobs:
+    deploy:
+        runs-on: macos-latest
+        permissions:
+            contents: write
+        steps:
+            -   name: Checkout Repository
+                uses: actions/checkout@v3
+                with:
+                    fetch-depth: 0
+            -   name: Set Node version
+                uses: actions/setup-node@v3
+                with:
+                    node-version-file: '.nvmrc'
+            -   name: Build
+                shell: bash
+                run: |
+                    yarn install --frozen-lockfile;
+                    yarn workspace mcgriddle-data start INPUT="src/index.mts --geo-coord-lookup" --silent;
+                    yarn workspace mcgriddle-web build;
+            -   name: Deploy
+                uses: peaceiris/actions-gh-pages@v3
+                with:
+                    github_token: ${{ secrets.GITHUB_TOKEN }}
+                    publish_dir: ./packages/web/dist
