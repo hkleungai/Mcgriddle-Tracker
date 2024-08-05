@@ -29,6 +29,7 @@ export default class Callback_Timer {
     static wrap<X extends unknown[], Y>(cb: (...args: [...X]) => Y              ):  typeof cb
     static wrap<X extends unknown[], Y>(cb: (...args: [...X]) => Promise<Y>     ):  typeof cb
     static wrap<X extends unknown[], Y>(cb: (...args: [...X]) => Y | Promise<Y> ) {
+        // Keep passing the callback name to the anonymous function generated be this method
         const alias = (alias_cb: typeof cb) => (
             Object.defineProperty(alias_cb, 'name', { value: cb.name })
         )

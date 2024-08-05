@@ -38,4 +38,17 @@ svg {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    width: 100%;
+}
+
+.flex-row-row--active {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 8px;
+}
+
+hr {
+    border-width: 1px;
+    border-style: dashed;
+    width: 100%;
 }

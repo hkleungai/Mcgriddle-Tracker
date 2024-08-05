@@ -10,9 +10,9 @@ type Avail_Status = 'AVAILABLE' | 'OUT_OF_STOCK' | 'NOT_AVAILABLE';
 
 export default function useHook_prod_avail_lookup(): (
     | { loading: true }
-    | { loading: false, result: Record<string, string> }
+    | { loading: false, result: Record<string, Avail_Status> }
 ) {
-    const [result, set_result] = useState<Record<string, string>>();
+    const [result, set_result] = useState<Record<string, Avail_Status>>();
     const [loading, set_loading] = useState(false);
 
     useEffect(() => {
